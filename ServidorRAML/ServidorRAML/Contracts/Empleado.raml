@@ -1,0 +1,181 @@
+#%RAML 1.0
+#===============================================================
+#  References:
+#    - RAML Specification - http://raml.org/spec.html
+#    - RAML Projects - http://raml.org/projects.html
+#    - RAML Tools  - http://www.apihub.com/raml-tools
+#===============================================================
+
+title: Empleados API
+version: v1
+baseUri: http://api.mtis.org
+#List of media type to support
+#mediaType:  application/json
+#List of protocols to support for baseUri
+#protocols: [ HTTP, HTTPS ]
+
+#===============================================================
+#  API documentation
+#===============================================================
+
+types:
+  Empleado:
+    description: Objeto empleado para almacenar los datos de un empleado.
+    type: object
+    properties:
+      DNI:
+        type: string
+        minLength: 9
+        maxLength: 9
+      Nombre?:
+        type: string
+        minLength: 0
+        maxLength: 64
+      Apellidos?:
+        type: string
+        minLength: 0
+        maxLength: 64
+      Direccion?:
+        type: string
+        minLength: 0
+        maxLength: 256
+      Poblacion?:
+        type: string
+        minLength: 0
+        maxLength: 32
+      Telefono?:
+        type: string
+        minLength: 0
+        maxLength: 16
+      Email?:
+        type: string
+        minLength: 0
+        maxLength: 128
+      Nacimiento:
+        type: string
+        format: date-only
+        required: false
+        minLength: 0
+        maxLength: 16
+      NSS?:
+        type: string
+        minLength: 0
+        maxLength: 12
+      IBAN?:
+        type: string
+        minLength: 0
+        maxLength: 24
+  Error:
+    description: Objeto utilziado para transmitir un mensaje y codigo en caso de algun error.
+    type: object
+    properties:
+      code: integer
+      message: string
+
+#===============================================================
+#  API documentation
+#===============================================================
+
+documentation:
+  - title: Gestion Empleados
+    content: | #Esto es un prototipo de API para la Gestion de Empleados de una empresa.
+
+#===============================================================
+# API resource definitions
+#===============================================================
+
+/empleados:
+  /nuevo:
+    post:
+      displayName: NewEmployee
+      description: Crear un empleado
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+      body:
+        application/json:
+          type: Empleado
+      responses:
+        200:
+          description: Se ha creado un Empleado con exito.
+          body:
+            application/json:
+              type: boolean
+        400:
+          description: Ha ocurrido un error al crear el empleado.
+          body:
+            application/json:
+              type: Error
+  /consultar:
+    get:
+      displayName: GetEmployee
+      description: Obtener un empleado a partir de su DNI y una RestKey
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+        DNI:
+          description: DNI del empleado a consultar.
+          type: string
+          required: true
+      responses:
+        200:
+          description: Empleado consultado correctamente.
+          body:
+            application/json:
+              type: Empleado
+        400:
+          description: Ha ocurrido un error al crear el empleado.
+          body:
+            application/json:
+              type: Error
+  /modificar:
+    put:
+      displayName: UpdateEmployee
+      description: Actualiza los datos de un empleado tras validar una RestKey
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+      body:
+        application/json:
+          type: Empleado
+      responses:
+        200:
+          description: Se ha modificado el Empleado correctamente
+          body:
+            application/json:
+              type: boolean
+        400:
+          description: Ha ocurrido un error al modificar el empleado.
+          body:
+            application/json:
+              type: Error
+  /borrar:
+    delete:
+      displayName: DeleteEmployee
+      description: Eliminar un empleado de la base de datos
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+        DNI:
+          description: DNI del empleado a consultar.
+          type: string
+          required: true
+      responses:
+        200:
+          description: El empleado ha sido borrado de manera exitosa.
+          body:
+            application/json:
+              type: boolean
+        400:
+          description: Ha ocurrido un error al intentar borrar el empleado.
+          body:
+            application/json:
+              type: Error

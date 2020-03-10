@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mtis.org/Seguridad/" name="Seguridad" targetNamespace="http://www.mtis.org/Seguridad/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.mtis.org/Seguridad/">
+      <xsd:element name="validarUsuario">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="NIF" type="xsd:string" />
+            <xsd:element name="sala" type="xsd:string" />
+            <xsd:element name="SoapKey" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="validarUsuarioResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allOK" type="xsd:boolean" />
+            <xsd:element name="errors" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="obtenerNiveles">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="NIF" type="xsd:string" />
+            <xsd:element name="SoapKey" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="obtenerNivelesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="niveles" type="xsd:string" />
+            <xsd:element name="errors" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="asignarPermiso">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="NIF" type="xsd:string" />
+            <xsd:element name="sala" type="xsd:string" />
+            <xsd:element name="SoapKey" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="asignarPermisoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allOK" type="xsd:boolean" />
+            <xsd:element name="errors" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="eliminarPermiso">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="NIF" type="xsd:string" />
+            <xsd:element name="sala" type="xsd:string" />
+            <xsd:element name="SoapKey" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="eliminarPermisoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allOK" type="xsd:boolean" />
+            <xsd:element name="errors" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="eliminarPermisoRequest">
+    <wsdl:part name="parameters" element="tns:eliminarPermiso" />
+  </wsdl:message>
+  <wsdl:message name="asignarPermisoRequest">
+    <wsdl:part name="parameters" element="tns:asignarPermiso" />
+  </wsdl:message>
+  <wsdl:message name="eliminarPermisoResponse">
+    <wsdl:part name="parameters" element="tns:eliminarPermisoResponse" />
+  </wsdl:message>
+  <wsdl:message name="asignarPermisoResponse">
+    <wsdl:part name="parameters" element="tns:asignarPermisoResponse" />
+  </wsdl:message>
+  <wsdl:message name="validarUsuarioRequest">
+    <wsdl:part name="parameters" element="tns:validarUsuario" />
+  </wsdl:message>
+  <wsdl:message name="obtenerNivelesResponse">
+    <wsdl:part name="parameters" element="tns:obtenerNivelesResponse" />
+  </wsdl:message>
+  <wsdl:message name="obtenerNivelesRequest">
+    <wsdl:part name="parameters" element="tns:obtenerNiveles" />
+  </wsdl:message>
+  <wsdl:message name="validarUsuarioResponse">
+    <wsdl:part name="parameters" element="tns:validarUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Seguridad">
+    <wsdl:operation name="validarUsuario">
+      <wsdl:input message="tns:validarUsuarioRequest" />
+      <wsdl:output message="tns:validarUsuarioResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="obtenerNiveles">
+      <wsdl:input message="tns:obtenerNivelesRequest" />
+      <wsdl:output message="tns:obtenerNivelesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="asignarPermiso">
+      <wsdl:input message="tns:asignarPermisoRequest" />
+      <wsdl:output message="tns:asignarPermisoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarPermiso">
+      <wsdl:input message="tns:eliminarPermisoRequest" />
+      <wsdl:output message="tns:eliminarPermisoResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SeguridadSOAP" type="tns:Seguridad">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="validarUsuario">
+      <soap:operation soapAction="http://www.mtis.org/Seguridad/validarUsuario" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerNiveles">
+      <soap:operation soapAction="http://www.mtis.org/Seguridad/obtenerNiveles" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="asignarPermiso">
+      <soap:operation soapAction="http://www.mtis.org/Seguridad/asignarPermiso" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarPermiso">
+      <soap:operation soapAction="http://www.mtis.org/Seguridad/eliminarPermiso" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Seguridad">
+    <wsdl:port name="SeguridadSOAP" binding="tns:SeguridadSOAP">
+      <soap:address location="http://localhost:9080/Practica1/services/Seguridad/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

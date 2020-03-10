@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mtis.org/Utilidades/" name="Utilidades" targetNamespace="http://www.mtis.org/Utilidades/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.mtis.org/Utilidades/">
+      <xsd:element name="validarNIF">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="NIF" type="xsd:string" />
+            <xsd:element name="SoapKey" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="validarNIFResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allOK" type="xsd:boolean" />
+            <xsd:element name="errors" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="validarIBAN">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="IBAN" type="xsd:string" />
+            <xsd:element name="SoapKey" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="validarIBANResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allOK" type="xsd:boolean" />
+            <xsd:element name="errors" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="validarNAFSS">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="NAFSS" type="xsd:string" />
+            <xsd:element name="SoapKey" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="validarNAFSSResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allOK" type="xsd:boolean" />
+            <xsd:element name="errors" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="validarNIFRequest">
+    <wsdl:part name="parameters" element="tns:validarNIF" />
+  </wsdl:message>
+  <wsdl:message name="validarIBANRequest">
+    <wsdl:part name="parameters" element="tns:validarIBAN" />
+  </wsdl:message>
+  <wsdl:message name="validarNAFSSRequest">
+    <wsdl:part name="parameters" element="tns:validarNAFSS" />
+  </wsdl:message>
+  <wsdl:message name="validarIBANResponse">
+    <wsdl:part name="parameters" element="tns:validarIBANResponse" />
+  </wsdl:message>
+  <wsdl:message name="validarNIFResponse">
+    <wsdl:part name="parameters" element="tns:validarNIFResponse" />
+  </wsdl:message>
+  <wsdl:message name="validarNAFSSResponse">
+    <wsdl:part name="parameters" element="tns:validarNAFSSResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Utilidades">
+    <wsdl:operation name="validarNIF">
+      <wsdl:input message="tns:validarNIFRequest" />
+      <wsdl:output message="tns:validarNIFResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="validarIBAN">
+      <wsdl:input message="tns:validarIBANRequest" />
+      <wsdl:output message="tns:validarIBANResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="validarNAFSS">
+      <wsdl:input message="tns:validarNAFSSRequest" />
+      <wsdl:output message="tns:validarNAFSSResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UtilidadesSOAP" type="tns:Utilidades">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="validarNIF">
+      <soap:operation soapAction="http://www.mtis.org/Utilidades/validarNIF" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validarIBAN">
+      <soap:operation soapAction="http://www.mtis.org/Utilidades/validarIBAN" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validarNAFSS">
+      <soap:operation soapAction="http://www.mtis.org/Utilidades/validarNAFSS" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Utilidades">
+    <wsdl:port name="UtilidadesSOAP" binding="tns:UtilidadesSOAP">
+      <soap:address location="http://localhost:9080/Practica1/services/Utilidades/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

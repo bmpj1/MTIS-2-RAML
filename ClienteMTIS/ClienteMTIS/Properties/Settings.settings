@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ClienteMTIS.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ClienteMTIS_localhost_Empleado" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:9080/Practica1/services/Empleado/</Value>
+    </Setting>
+    <Setting Name="ClienteMTIS_localhost1_Seguridad" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:9080/Practica1/services/Seguridad/</Value>
+    </Setting>
+    <Setting Name="ClienteMTIS_localhost2_Utilidades" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:9080/Practica1/services/Utilidades/</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

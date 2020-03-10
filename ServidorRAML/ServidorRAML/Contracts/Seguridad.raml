@@ -1,0 +1,166 @@
+#%RAML 1.0
+#===============================================================
+#  References:
+#    - RAML Specification - http://raml.org/spec.html
+#    - RAML Projects - http://raml.org/projects.html
+#    - RAML Tools  - http://www.apihub.com/raml-tools
+#===============================================================
+
+title: Empleados API
+version: v1
+baseUri: http://api.mtis.org
+#List of media type to support
+#mediaType:  application/json
+#List of protocols to support for baseUri
+#protocols: [ HTTP, HTTPS ]
+
+#===============================================================
+#  API documentation
+#===============================================================
+
+types:
+  Seguridad:
+    description: Objeto seguridad para el acceso a la gestion de la 'empresa'.
+    type: object
+    properties:
+      DNI:
+        type: string
+        minLength: 9
+        maxLength: 9
+        required: true
+      Sala:
+        type: string
+        required: true
+  Error:
+    description: Objeto utilziado para transmitir un mensaje y codigo en caso de algun error.
+    type: object
+    properties:
+      code: integer
+      message: string
+
+#===============================================================
+#  API documentation
+#===============================================================
+
+documentation:
+  - title: Gestion Empleados
+    content: | #Esto es un prototipo de API para la Gestion de Empleados de una empresa.
+
+#===============================================================
+# API resource definitions
+#===============================================================
+
+/seguridad:
+  /asignarPermisos:
+    post:
+      displayName: AsignarPermisos
+      description: Concede permisos de acceso enlazando una sala con un empleado
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+        DNI:
+          description: Un DNI valido de un empleado registrado.
+          type: string
+          minLength: 9
+          maxLength: 9
+          required: true
+        Sala:
+          description: Un nombre de una sala
+          type: string
+          required: true
+      responses:
+        200:
+          description: Se han asociado la sala y el empleado correctamente.
+          body:
+            application/json:
+              type: boolean
+        400:
+          description: Ha ocurrido algun error al realizar la operacion.
+          body:
+            application/json:
+              type: Error
+  /validarUsuario:
+    get:
+      displayName: ValidateUser
+      description: Validar el acceso a una sala por parte de un usuario a partir de su DNI y el nombre de la Sala
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+        DNI:
+          description: DNI del empleado interesado.
+          type: string
+          required: true
+        Sala:
+          description: Sala a comprobar
+          type: string
+          required: true
+      responses:
+        200:
+          description: El empleado puede acceder a la sala.
+          body:
+            application/json:
+              type: boolean
+        400:
+          description: Ha ocurrido un error o el usuario no puede acceder
+          body:
+            application/json:
+              type: Error
+  /eliminarPermisos:
+    delete:
+      displayName: eliminarPermisos
+      description: Eliminar el acceso del usuario a una sala
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+        DNI:
+          description: DNI del empleado
+          type: string
+          required: true
+        Sala:
+          description: Nombre de la sala
+          type: string
+          required: true
+      responses:
+        200:
+          description: Se han eliminado los permisos correctamente
+          body:
+            application/json:
+              type: boolean
+        400:
+          description: Ha ocurrido un error al modificar el empleado.
+          body:
+            application/json:
+              type: Error
+  /obtenerNiveles:
+    get:
+      displayName: obtenerNiveles
+      description: Obtiene la lista de salas a las que puede acceder un empleado.
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+        DNI:
+          description: DNI del empleado a consultar.
+          type: string
+          required: true
+      responses:
+        200:
+          description: Lista de salas obtenida
+          body:
+            application/json:
+              type: array
+              items: string
+              minItems: 0
+              uniqueItems: false
+        400:
+          description: Ha ocurrido algún error durante la consulta.
+          body:
+            application/json:
+              type: Error

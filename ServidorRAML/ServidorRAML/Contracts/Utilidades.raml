@@ -1,0 +1,113 @@
+#%RAML 1.0
+#===============================================================
+#  References:
+#    - RAML Specification - http://raml.org/spec.html
+#    - RAML Projects - http://raml.org/projects.html
+#    - RAML Tools  - http://www.apihub.com/raml-tools
+#===============================================================
+
+title: Empleados API
+version: v1
+baseUri: http://api.mtis.org
+#List of media type to support
+#mediaType:  application/json
+#List of protocols to support for baseUri
+#protocols: [ HTTP, HTTPS ]
+
+#===============================================================
+#  API documentation
+#===============================================================
+
+types:
+  Error:
+    description: Objeto utilziado para transmitir un mensaje y codigo en caso de algun error.
+    type: object
+    properties:
+      code: integer
+      message: string
+
+#===============================================================
+#  API documentation
+#===============================================================
+
+documentation:
+  - title: Gestion Empleados
+    content: | #Esto es un prototipo de API para la Gestion de Empleados de una empresa.
+
+#===============================================================
+# API resource definitions
+#===============================================================
+
+/utilidades:
+  /validarNIF:
+    get:
+      displayName: validarNIF
+      description: Valida un NIF
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+        DNI:
+          description: DNI a validar
+          type: string
+          required: true
+      responses:
+        200:
+          description: El DNI es valido
+          body:
+            application/json:
+              type: boolean
+        400:
+          description: El DNI o restkey no validos
+          body:
+            application/json:
+              type: Error
+  /validarIBAN:
+    get:
+      displayName: validarIBAN
+      description: Valida un IBAN
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+        IBAN:
+          description: IBAN a validar
+          type: string
+          required: true
+      responses:
+        200:
+          description: El IBAN es valido
+          body:
+            application/json:
+              type: boolean
+        400:
+          description: El IBAN o restkey no validos
+          body:
+            application/json:
+              type: Error
+  /validarNAFSS:
+    get:
+      displayName: validarNAFSS
+      description: Valida un NAFSS
+      queryParameters:
+        RestKey:
+          description: Una restkey valida almacenada en la bdd (Concede permisos para realizar al operacion)
+          type: string
+          required: true
+        NAFSS:
+          description: NAFSS a validar
+          type: string
+          required: true
+      responses:
+        200:
+          description: El NAFSS es valido
+          body:
+            application/json:
+              type: boolean
+        400:
+          description: El NAFSS o restkey no validos
+          body:
+            application/json:
+              type: Error
